@@ -46,7 +46,7 @@ ZeroCHECK is a web-based application that leverages zero-knowledge proof (ZKP) t
    cd backend npm run dev
    ```
 # 📜 License  
-This project is licensed under the MIT License.   
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.   
 
 # Contributions  
 Contributions are welcome! Please fork the repository and submit a pull request with your proposed changes.
