@@ -1,8 +1,8 @@
-import { useState,useEffect } from 'react';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { BrowserProvider, Contract } from 'ethers';
-import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
+import { useState, useEffect } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { BrowserProvider, Contract } from "ethers";
+import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 
 const contractABI = [
   {
@@ -123,152 +123,153 @@ const contractABI = [
 
 const contractAddress = "0x235bAb1c04159Fb5d11b417E34Ef8d6Ab6e833d7";
 const ProverHome = () => {
-  const [message, setMessage] = useState({ type: '', content: '' });
-  const [isConnected, setIsConnected] = useState(localStorage.getItem('digilockerConnected') === 'true');
+  const [message, setMessage] = useState({ type: "", content: "" });
+  const [isConnected, setIsConnected] = useState(
+    localStorage.getItem("digilockerConnected") === "true"
+  );
   const [isConnecting, setIsConnecting] = useState(false);
-    const [inputValue, setInputValue] = useState('');
-    const [proverAddress, setproverAddress] = useState(null);
+  const [inputValue, setInputValue] = useState("");
+  const [proverAddress, setproverAddress] = useState(null);
 
-    const [contract, setContract] = useState(null);
-    const [account, setAccount] = useState(null);
-    const [zkpStatus, setZkpStatus] = useState(false);
-  
-    useEffect(() => {
-        const initBlockchain = async () => {
-            if (window.ethereum) {
-              const provider = new BrowserProvider(window.ethereum);
-        
-              // Request account access
-              const signer = await provider.getSigner();
-              console.log('address',signer.address)
-              setproverAddress(signer.address)
-          const contract = new Contract(contractAddress, contractABI, signer);
-          setContract(contract);
-  
-          const userAddress = await signer.getAddress();
-          setAccount(userAddress);
-        } else {
-          console.log('Ethereum wallet not found');
-        }
-      };
-  
-      initBlockchain();
-    }, []);
-    const handleCompleteVerification = async () => {
-        try {
-            const tx = await contract.storeData(proverAddress, zkpStatus);
-            await tx.wait();
-            console.log('Data stored successfully');
-          } catch (error) {
-            console.error('Error storing data:', error);
-          }
-      };
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        handleCompleteVerification()
-        const maxAge = localStorage.getItem('maxAge');
-        const minAge = localStorage.getItem('minAge');
-        const data = { inputValue, maxAge, minAge };
+  const [contract, setContract] = useState(null);
+  const [account, setAccount] = useState(null);
+  const [zkpStatus, setZkpStatus] = useState(false);
 
-        const response = await fetch('http://localhost:3000/post-file', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
+  useEffect(() => {
+    const initBlockchain = async () => {
+      if (window.ethereum) {
+        const provider = new BrowserProvider(window.ethereum);
 
-        const result = await response.json();
+        // Request account access
+        const signer = await provider.getSigner();
+        console.log("address", signer.address);
+        setproverAddress(signer.address);
+        const contract = new Contract(contractAddress, contractABI, signer);
+        setContract(contract);
 
-        if (response.ok) {
-            setZkpStatus('success')
-            setMessage({ type: 'success', content: result.message });
-        } else {
-            setZkpStatus('failed')
-            setMessage({ type: 'error', content: result.message }); 
-        }
+        const userAddress = await signer.getAddress();
+        setAccount(userAddress);
+      } else {
+        console.log("Ethereum wallet not found");
+      }
     };
 
-    const handleDigiLockerConnect = () => {
-        if (!isConnected) {
-            setIsConnecting(true);
-            setTimeout(() => {
-                localStorage.setItem('digilockerConnected', 'true');
-                setIsConnected(true);
-                setIsConnecting(false);
-            }, 3000);
-        }
-    };
- 
+    initBlockchain();
+  }, []);
+  const handleCompleteVerification = async () => {
+    try {
+      const tx = await contract.storeData(proverAddress, zkpStatus);
+      await tx.wait();
+      console.log("Data stored successfully");
+    } catch (error) {
+      console.error("Error storing data:", error);
+    }
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    handleCompleteVerification();
+    const maxAge = localStorage.getItem("maxAge");
+    const minAge = localStorage.getItem("minAge");
+    const data = { inputValue, maxAge, minAge };
 
-    return (
-      <div className="pt-[10%] lg:pt-[2%] lg:ml-[35%] md:ml-[30%] sm:ml-[20%] ml-5">
-        <ToastContainer />
-        <div className="lg:w-[400px] lg:h-[500px] border-[3px] border-[white] rounded-md w-[340px] h-[470px]">
-          <p>Connected Account: {account}</p>
+    const response = await fetch("http://localhost:3000/post-file", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
-          <form
-            className="flex flex-col gap-4 text-black lg:ml-[20%] ml-[15%] mt-[10%]"
-            onSubmit={handleSubmit}
+    const result = await response.json();
+
+    if (response.ok) {
+      setZkpStatus("success");
+      setMessage({ type: "success", content: result.message });
+    } else {
+      setZkpStatus("failed");
+      setMessage({ type: "error", content: result.message });
+    }
+  };
+
+  const handleDigiLockerConnect = () => {
+    if (!isConnected) {
+      setIsConnecting(true);
+      setTimeout(() => {
+        localStorage.setItem("digilockerConnected", "true");
+        setIsConnected(true);
+        setIsConnecting(false);
+      }, 3000);
+    }
+  };
+
+  return (
+    <div className="pt-[10%] lg:pt-[2%] lg:ml-[35%] md:ml-[30%] sm:ml-[20%] ml-5">
+      <ToastContainer />
+      <div className="lg:w-[400px] lg:h-[500px] border-[3px] border-[white] rounded-md w-[340px] h-[470px]">
+        <p>Connected Account: {account}</p>
+
+        <form
+          className="flex flex-col gap-4 text-black lg:ml-[20%] ml-[15%] mt-[10%]"
+          onSubmit={handleSubmit}
+        >
+          <button
+            type="button"
+            className={`w-[250px] h-10 text-center text-xl font-bold text-white border-white border-[3px] rounded-full ${
+              isConnected
+                ? "bg-[#00ffec]"
+                : isConnecting
+                ? "bg-blue-400"
+                : "bg-[#db9410]"
+            }`}
+            onClick={handleDigiLockerConnect}
+            disabled={isConnected || isConnecting}
           >
-            <button
-              type="button"
-              className={`w-[250px] h-10 text-center text-xl font-bold text-white border-white border-[3px] rounded-full ${
-                isConnected
-                  ? "bg-[#00ffec]"
-                  : isConnecting
-                  ? "bg-blue-400"
-                  : "bg-[#db9410]"
-              }`}
-              onClick={handleDigiLockerConnect}
-              disabled={isConnected || isConnecting}
-            >
-              {isConnecting
-                ? "Connecting..."
-                : isConnected
-                ? "Connected"
-                : "Connect DigiLocker"}
-            </button>
+            {isConnecting
+              ? "Connecting..."
+              : isConnected
+              ? "Connected"
+              : "Connect DigiLocker"}
+          </button>
 
-            <div className="mt-[5%]">
-              <label className="block text-sm font-medium text-white">
-                Enter type
-              </label>
-              <input
-                id="textInput"
-                type="text"
-                placeholder="Enter your text here"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                className="mt-1 block w-[250px] p-2 bg-gray-50 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-[250px] bg-[#00ffec] h-10 text-center rounded-lg text-white font-semibold"
+          <div className="mt-[5%]">
+            <label className="block text-sm font-medium text-white">
+              Enter type
+            </label>
+            <input
+              id="textInput"
+              type="text"
+              placeholder="Enter your text here"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              className="mt-1 block w-[250px] p-2 bg-gray-50 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-[250px] bg-[#00ffec] h-10 text-center rounded-lg text-white font-semibold"
+          >
+            Generate proof & Send
+          </button>
+          {message.content && (
+            <div
+              className={`mt-5 pl-3  w-[255px] ${
+                message.type === "success"
+                  ? "bg-green-200 text-green-800"
+                  : "bg-red-200 text-red-800"
+              } flex items-center`}
             >
-              Generate proof & Send
-            </button>
-            {message.content && (
-              <div
-                className={`mt-5 pl-3  w-[255px] lg:ml-[20%] ${
-                  message.type === "success"
-                    ? "bg-green-200 text-green-800"
-                    : "bg-red-200 text-red-800"
-                } flex items-center`}
-              >
-                {message.type === "success" ? (
-                  <FaCheckCircle className="mr-2 text-green-600" />
-                ) : (
-                  <FaExclamationCircle className="mr-2 text-red-600" />
-                )}
-                <span>{message.content}</span>
-              </div>
-            )}
-          </form>
-        </div>
+              {message.type === "success" ? (
+                <FaCheckCircle className="mr-2 text-green-600" />
+              ) : (
+                <FaExclamationCircle className="mr-2 text-red-600" />
+              )}
+              <span>{message.content}</span>
+            </div>
+          )}
+        </form>
       </div>
-    );
+    </div>
+  );
 };
 
 export default ProverHome;

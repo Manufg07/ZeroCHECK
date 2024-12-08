@@ -11,6 +11,14 @@ module.exports = {
       url: "https://rpc-amoy.polygon.technology",
       accounts: [process.env.PRIVATE_KEY],
     },
+    baseTestnet: {
+      url: "https://goerli.base.org",
+      accounts: [process.env.PRIVATE_KEY],
+    },
+    bscTestnet: {
+      url: "https://data-seed-prebsc-1-s1.binance.org:8545/",
+      accounts: [process.env.PRIVATE_KEY], 
+    },
   },
   solidity: "0.8.20",
 };
