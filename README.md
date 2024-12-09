@@ -52,7 +52,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 # 🎖️ My ETHIndia24 POAP
 
-![ETHIndia24 POAP](./pop/ethindia24-poap.png)  
+![ETHIndia24 POAP](./ui/epop.jpg)  
 Earned for participating in **ETHIndia24**.  
 [View my POAP](https://collectors.poap.xyz/token/7271355)
 
