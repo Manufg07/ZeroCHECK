@@ -1,4 +1,4 @@
-# ZeroCHECK
+# 🔐ZeroCHECK
 
 ZeroCHECK is a web-based application that leverages zero-knowledge proof (ZKP) technology to securely verify the identity of individuals without revealing sensitive personal information. This innovative solution ensures privacy by allowing users to prove their identity or specific attributes (such as age, name or address) without exposing the underlying data. By eliminating the need for traditional data-sharing methods, ZeroCHECK enhances security and trust in digital interactions, making it ideal for use cases where privacy is a priority, such as financial services, online voting, and access control systems.
 
