@@ -4,7 +4,7 @@ ZeroCHECK is a web-based application that leverages zero-knowledge proof (ZKP) t
 
 
 # 📹 Demo Video  
-Check out the demo video of ZeroCHECK here: [Watch on YouTube](https://youtu.be/75NWPewAKCY?si=hZXYnvtZ0caEvlNS)  
+[![Watch the Demo Video](https://img.youtube.com/vi/75NWPewAKCY/0.jpg)](https://youtu.be/75NWPewAKCY?si=hZXYnvtZ0caEvlNS)  
 
 # 🚀 Features  
 - Customizable Verification Parameters: Verifiers can request specific identity attributes such as name, age, and address for verification. The user (prover) can respond by proving these parameters without revealing the actual data, ensuring privacy through zero-knowledge proofs.
