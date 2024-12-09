@@ -50,5 +50,13 @@ ZeroCHECK is a web-based application that leverages zero-knowledge proof (ZKP) t
 # 📜 License  
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.   
 
+# 🎖️ My ETHIndia24 POAP
+
+![ETHIndia24 POAP](./pop/ethindia24-poap.png)  
+Earned for participating in **ETHIndia24**.  
+[View my POAP](https://collectors.poap.xyz/token/7271355)
+
+
+
 # Contributions  
 Contributions are welcome! Please fork the repository and submit a pull request with your proposed changes.
